@@ -4,6 +4,8 @@ import pendulum
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.operators.python import BranchPythonOperator
+from airflow.operators.bash_operator import BashOperator
+
 
 from src.movie_data import download_data_to_bigquery, get_count_over_4, delete_movie_data, \
     load_data_from_bigquery, is_exists
@@ -43,9 +45,13 @@ with DAG(
         python_callable=get_count_over_4,
         trigger_rule='one_success'
     )
-    delete_data = PythonOperator(
-        task_id='delete_data_from_bigquery',
-        python_callable=delete_movie_data
-    )
-    check_data >> [download_data, get_data] >> get_count >> delete_data
+    # delete_data = PythonOperator(
+    #     task_id='delete_data_from_bigquery',
+    #     python_callable=delete_movie_data
+    # )
+    t_1 = BashOperator(
+            task_id='start',
+            bash_command="bash /opt/airflow/dags/dags/dbt_components/movielen/start.sh "
+        )
+    check_data >> [download_data, get_data] >> get_count >> t_1
 

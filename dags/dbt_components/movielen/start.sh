@@ -1,0 +1,2 @@
+dbt run --profiles-dir /opt/airflow/dags/dags/dbt_components/movielen/profile --project-dir /opt/airflow/dags/dags/dbt_components/movielen --select silver_user_rating
+dbt run --profiles-dir /opt/airflow/dags/dags/dbt_components/movielen/profile --project-dir /opt/airflow/dags/dags/dbt_components/movielen --select gold_rating

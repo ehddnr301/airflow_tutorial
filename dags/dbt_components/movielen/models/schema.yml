@@ -1,0 +1,27 @@
+
+version: 1
+
+models:
+  - name: silver_user_rating
+    description: "A table summarizing the scores given to each user"
+    columns:
+      - name: userId
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: ratingCount
+        description: "A value that shows how many points a user has scored"
+        tests:
+          - not_null
+      - name: userAverageRating
+        description: "A value that shows what the average score is given by the user"
+        tests:
+          - not_null
+  - name: gold_rating
+    description: "gold table"
+    columns:
+      - name: totalAverageRating
+        description: "The primary key for this table"
+        tests:
+          - not_null
